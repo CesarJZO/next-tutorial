@@ -4,7 +4,7 @@ const Toggle: React.FC = () => {
     const [isOn, setIsOn] = useState(false);
 
     const toggleStyle: React.CSSProperties = {
-        width: '100%',
+        width: '90%',
         backgroundColor: isOn ? 'green' : 'red',
         display: 'flex',
         alignItems: 'center',
@@ -14,6 +14,7 @@ const Toggle: React.FC = () => {
         fontWeight: 'bold',
         boxShadow: '0 2px 2px rgba(0, 0, 0, 0.2)',
         fontFamily: 'roboto',
+        borderRadius: '0.25em',
         justifyContent: 'center',
     };
 
@@ -23,7 +24,7 @@ const Toggle: React.FC = () => {
 
     return (
         <button style={toggleStyle} onClick={toggle}>
-            {isOn ? 'ON' : 'OFF'}
+            {isOn ? 'En casa' : 'Afuera'}
         </button>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Gauge = ({ value, min, max, width, height, label }) => {
+const Gauge = ({ value, min, max, label }) => {
     const [animatedValue, setAnimatedValue] = React.useState(value);
 
     React.useEffect(() => {
@@ -8,7 +8,7 @@ const Gauge = ({ value, min, max, width, height, label }) => {
     }, [value]);
 
     const containerStyle: React.CSSProperties = {
-        width: `${width}px`,
+        width: '200px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -39,7 +39,7 @@ const Gauge = ({ value, min, max, width, height, label }) => {
     };
 
     const labelContainerStyle: React.CSSProperties = {
-        width: `${width}px`,
+        width: '200px',
     };
 
     /* place label below gauge */
