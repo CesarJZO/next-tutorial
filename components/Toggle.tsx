@@ -1,5 +1,22 @@
 import React, { useState } from 'react';
 
+async function callParticle(status: number) {
+    const deviceId = "2f002e001847393035313137";
+    const accessToken = "7cde93be363b335f1e49b99baeb8f73311f71a53";
+    const baseUrl = "https://api.particle.io/v1/devices";
+
+    /* const response = */ await fetch(`${baseUrl}/${deviceId}/setHayGente`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        body: `params=${status}`,
+    });
+
+    // const data = await response.json();
+    // console.log(data);
+}
+
 const Toggle: React.FC = () => {
     const [isOn, setIsOn] = useState(false);
 
@@ -20,6 +37,7 @@ const Toggle: React.FC = () => {
 
     const toggle = () => {
         setIsOn(!isOn);
+        callParticle(isOn ? 0 : 1);
     };
 
     return (
