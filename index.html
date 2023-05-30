@@ -32,10 +32,10 @@
 			);
 		}
 
-		function Header() {
+		function Header({ title }) {
 			return (
 				<div>
-					<h1>Develop. Preview. Ship. 🚀</h1>
+					<h1>{title}</h1>
 					<Nav />
 				</div>
 			);
@@ -61,7 +61,7 @@
 		function HomePage() {
 			return (
 				<div>
-					<Header />
+					<Header title="React 💙"/>
 					<Article />
 					<Footer />
 				</div>
