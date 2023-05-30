@@ -12,7 +12,7 @@ const MyPage = () => {
 
     return (
         <div style={homeStyle}>
-            <Header title="Particle Secrity" />
+            <Header title="Particle Security" />
             <Dashboard />
         </div>
     );

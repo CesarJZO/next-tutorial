@@ -2,6 +2,9 @@ import React from 'react';
 import Gauge from './Gauge';
 import Toggle from './Toggle';
 
+/**
+ * @returns A dashboard with two gauges and a toggle button
+ */
 const Dashboard = () => {
     const containerStyle: React.CSSProperties = {
         display: 'flex',
@@ -23,8 +26,8 @@ const Dashboard = () => {
     const [temperature, setTemperature] = React.useState(0);
     const [humidity, setHumidity] = React.useState(0);
 
-    const deviceId = "2f002e001847393035313137";
-    const accessToken = "7cde93be363b335f1e49b99baeb8f73311f71a53";
+    const deviceId = process.env.DEVICE_ID;
+    const accessToken = process.env.ACCESS_TOKEN;
 
     const baseUrl = "https://api.particle.io/v1/devices";
 

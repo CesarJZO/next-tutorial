@@ -1,6 +1,6 @@
 .vscode/
 node_modules/
 .next/
-.env
+**/*.env*
 next-env.d.ts
 tsconfig.json
