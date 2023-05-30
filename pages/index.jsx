@@ -1,28 +1,17 @@
-import { useState } from 'react';
+import React from "react";
+import Gauge from "../components/gauge";
 
-function Header({ title }) {
-  return <h1>{title ? title : 'Default title'}</h1>;
-}
-
-export default function HomePage() {
-  const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
-
-  const [likes, setLikes] = useState(0);
-
-  function handleClick() {
-    setLikes(likes + 1);
-  }
+const MyPage = () => {
+  const value = 50;
+  const min = 0;
+  const max = 100;
 
   return (
     <div>
-      <Header title="Develop. Preview. Ship. Update. 🚀" />
-      <ul>
-        {names.map((name) => (
-          <li key={name}>{name}</li>
-        ))}
-      </ul>
-
-      <button onClick={handleClick}>Like ({likes})</button>
+      <h1>My gauge</h1>
+      <Gauge value={value} min={min} max={max} width={200} height={20} />
     </div>
   );
 }
+
+export default MyPage;
