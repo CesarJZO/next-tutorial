@@ -1,29 +1,36 @@
 import React from 'react';
 import Gauge from './Gauge';
+import Toggle from './Toggle';
 
 const Dashboard = () => {
-    // layout that contains 4 gauges aligned in a 2x2 grid
-    const dashboardStyle: React.CSSProperties = {
+    const containerStyle: React.CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '10px',
+    };
+
+    const gaugesDashboardStyle: React.CSSProperties = {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-        gridTemplateRows: '1fr 1fr',
         gridGap: '10px',
         padding: '10px',
+        margin: '15px',
         alignItems: 'center',
         justifyItems: 'center',
     };
 
-    // read temperature from handler
     const [temperature, setTemperature] = React.useState(0);
+    const [humidity, setHumidity] = React.useState(0);
 
     const deviceId = "2f002e001847393035313137";
     const accessToken = "7cde93be363b335f1e49b99baeb8f73311f71a53";
 
-    const url = `https://api.particle.io/v1/devices/${deviceId}/temperatura?access_token=${accessToken}`
+    const baseUrl = "https://api.particle.io/v1/devices";
 
     React.useEffect(() => {
         const interval = setInterval(async () => {
-            const response = await fetch(url);
+            const response = await fetch(`${baseUrl}/${deviceId}/temperatura?access_token=${accessToken}`);
             const data = await response.json();
             // get two decimals from result
             const result = Math.round(data.result * 100) / 100;
@@ -33,12 +40,25 @@ const Dashboard = () => {
         return () => clearInterval(interval);
     }, []);
 
+    React.useEffect(() => {
+        const interval = setInterval(async () => {
+            const response = await fetch(`${baseUrl}/${deviceId}/humedad?access_token=${accessToken}`);
+            const data = await response.json();
+            // get two decimals from result
+            const result = Math.round(data.result * 100) / 100;
+            setHumidity(result);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
-        <div style={dashboardStyle}>
-            <Gauge value={temperature} min={0} max={100} width={200} height={150} label="Temperature" />
-            <Gauge value={50} min={0} max={100} width={200} height={150} label="Humidity" />
-            <Gauge value={50} min={0} max={100} width={200} height={150} label="Pressure" />
-            <Gauge value={50} min={0} max={100} width={200} height={150} label="Wind Speed" />
+        <div style={containerStyle}>
+            <div style={gaugesDashboardStyle}>
+                <Gauge value={temperature} min={0} max={100} width={200} height={100} label="Temperature" />
+                <Gauge value={humidity} min={0} max={100} width={200} height={100} label="Humidity" />
+            </div>
+            <Toggle />
         </div>
     );
 }

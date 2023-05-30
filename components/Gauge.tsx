@@ -9,7 +9,6 @@ const Gauge = ({ value, min, max, width, height, label }) => {
 
     const containerStyle: React.CSSProperties = {
         width: `${width}px`,
-        height: `${height}px`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
