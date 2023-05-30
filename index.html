@@ -18,59 +18,27 @@
 	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 	<script type="text/jsx">
-		const app = document.getElementById('app');
-
-		// React components should be capitalized to distinguish them from plain HTML and JavaScript
-
-		function Nav() {
-			return (
-				<ul>
-					<li>Home</li>
-					<li>About</li>
-					<li>Contact</li>
-				</ul>
-			);
+		function Header(prop) {
+			return <h1>{prop.title}</h1>;
 		}
-
-		function Header({ title }) {
-			return (
-				<div>
-					<h1>{title}</h1>
-					<Nav />
-				</div>
-			);
-		}
-
-		function Article() {
-			return (
-				<div>
-					<h2>What is Next.js?</h2>
-					<p>Next.js is a minimalistic framework for server-rendered React applications.</p>
-				</div>
-			);
-		}
-
-		function Footer() {
-			return (
-				<footer>
-					<p>This is the footer</p>
-				</footer>
-			);
+		
+		function handleClick() {
+			console.log("increment like count")
 		}
 
 		function HomePage() {
 			const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
-
+		
 			return (
 				<div>
-					<Header title="Develop. Preview. Ship. 🚀"/>
+					<Header title="Develop. Preview. Ship. 🚀" />
 					<ul>
 						{names.map((name) => (
-							<li>{name}</li>
+							<li key={name}>{name}</li>
 						))}
 					</ul>
-					<Article />
-					<Footer />
+		
+					<button onClick={handleClick}>Like</button>
 				</div>
 			);
 		}
