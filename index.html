@@ -19,7 +19,14 @@
 
 	<script type="text/jsx">
 		const app = document.getElementById('app');
-		ReactDOM.render(<h1>Develop. Preview. Ship. 🚀</h1>, app);
+
+		// React components should be capitalized to distinguish them from plain HTML and JavaScript
+		function Header() {
+			return <h1>Develop. Preview. Ship. 🚀</h1>;
+		}
+
+		// To use React components, we need to use angle brackets
+		ReactDOM.render(<Header />, app);
 	</script>
 </body>
 
