@@ -21,12 +21,55 @@
 		const app = document.getElementById('app');
 
 		// React components should be capitalized to distinguish them from plain HTML and JavaScript
+
+		function Nav() {
+			return (
+				<ul>
+					<li>Home</li>
+					<li>About</li>
+					<li>Contact</li>
+				</ul>
+			);
+		}
+
 		function Header() {
-			return <h1>Develop. Preview. Ship. 🚀</h1>;
+			return (
+				<div>
+					<h1>Develop. Preview. Ship. 🚀</h1>
+					<Nav />
+				</div>
+			);
+		}
+
+		function Article() {
+			return (
+				<div>
+					<h2>What is Next.js?</h2>
+					<p>Next.js is a minimalistic framework for server-rendered React applications.</p>
+				</div>
+			);
+		}
+
+		function Footer() {
+			return (
+				<footer>
+					<p>This is the footer</p>
+				</footer>
+			);
+		}
+
+		function HomePage() {
+			return (
+				<div>
+					<Header />
+					<Article />
+					<Footer />
+				</div>
+			);
 		}
 
 		// To use React components, we need to use angle brackets
-		ReactDOM.render(<Header />, app);
+		ReactDOM.render(<HomePage />, app);
 	</script>
 </body>
 
