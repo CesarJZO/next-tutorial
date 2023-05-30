@@ -1,63 +1,68 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const Gauge = ({ value, min, max, label }) => {
-    const [animatedValue, setAnimatedValue] = React.useState(value);
+interface GaugeProps {
+    value: number;
+    min: number;
+    max: number;
+    label: string;
+    color?: string;
+    units?: string;
+}
 
-    React.useEffect(() => {
-        setAnimatedValue(value);
-    }, [value]);
+const Gauge: React.FC<GaugeProps> = ({ value, min, max, label, color, units }) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const containerStyle: React.CSSProperties = {
-        width: '200px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    };
+    useEffect(() => {
+        const canvas = canvasRef.current;
 
-    const percent = ((animatedValue - min) / (max - min)) * 100;
+        const context = canvas.getContext('2d');
 
-    const gaugeStyle: React.CSSProperties = {
-        width: "100%",
-        height: "30px",
-        border: '1px solid #000',
-        borderRadius: '1em',
-        boxShadow: '2px 2px rgba(0, 0, 0, 0.2)',
-        position: 'relative',
-        overflow: 'hidden',
-        // Position this below header
-        marginTop: '15px'
-    };
+        if (!context) return;
 
-    const fillStyle: React.CSSProperties = {
-        width: `${percent}%`,
-        height: '100%',
-        backgroundColor: '#00aaff',
-        position: 'absolute',
-        top: '0',
-        left: '0',
-    };
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = centerX - 10;
+        const startAngle = Math.PI * 0.75;
+        const endAngle = Math.PI * 2.25;
+        const valueAngle = startAngle +((value - min) / (max - min)) * (endAngle - startAngle);
+        const valuePercent = ((value - min) / (max - min)) * 100;
 
-    const labelContainerStyle: React.CSSProperties = {
-        width: '200px',
-    };
+        // Draw background arc
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        context.arc(centerX, centerY, radius, startAngle, endAngle);
+        // Rounded corners
+        context.lineCap = 'round';
+        context.lineWidth = 15;
+        context.strokeStyle = '#ccc';
+        context.stroke();
 
-    /* place label below gauge */
+        // Draw value arc
+        context.font = '20px Roboto';
+        context.fillStyle = '#000';
+        context.textAlign = 'center';
+        context.fillText(`${value.toFixed(0)}${units ? units : ""}`, centerX, centerY + 10);
+
+        // Draw filled arc
+        context.beginPath();
+        context.arc(centerX, centerY, radius, startAngle, valueAngle);
+        context.lineWidth = 10;
+        context.strokeStyle = color || '#00aaff';
+        context.stroke();
+
+    }, [value, min, max]);
+
     const labelStyle: React.CSSProperties = {
-        marginTop: '5px',
-        textAlign: 'center',
-        fontFamily: 'roboto',
+        fontSize: '20px',
         fontWeight: 'bold',
+        fontFamily: 'Roboto',
+        textAlign: 'center',
     };
 
     return (
-        <div style={containerStyle}>
-            <div style={gaugeStyle}>
-                <div style={fillStyle}></div>
-            </div>
-            <div style={labelContainerStyle}>
-                <div style={labelStyle}>{`${label} ${value}%`}</div>
-            </div>
+        <div>
+            <canvas ref={canvasRef} width={200} height={200}></canvas>
+            <div style={labelStyle}>{label}</div>
         </div>
     );
 };

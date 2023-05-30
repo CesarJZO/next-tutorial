@@ -59,7 +59,7 @@ const Dashboard = () => {
         <div style={containerStyle}>
             <div style={gaugesDashboardStyle}>
                 <Gauge value={temperature} min={0} max={100} label="Temperatura" />
-                <Gauge value={humidity} min={0} max={100} label="Humedad" />
+                <Gauge value={humidity} min={0} max={100} label="Humedad" units='%' />
             </div>
             <Toggle />
         </div>
